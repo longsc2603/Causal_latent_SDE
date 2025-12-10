@@ -1,0 +1,57 @@
+method:C3ausal-SDE-general-100-30,MCC:0.9630,SHD:52,F1:0.8041,TPR:0.9750,FDR:0.3158,time:412.08s
+method:C3ausal-SDE-general-100-30,MCC:0.9872,SHD:37,F1:0.8664,TPR:1.0000,FDR:0.2357,time:409.73s
+method:C3ausal-SDE-general-100-30,MCC:0.9788,SHD:41,F1:0.8421,TPR:1.0000,FDR:0.2727,time:409.90s
+method:C3ausal-SDE-general-100-30,MCC:0.9958,SHD:35,F1:0.8727,TPR:1.0000,FDR:0.2258,time:409.97s
+method:C3ausal-SDE-general-100-30,MCC:0.9946,SHD:32,F1:0.8824,TPR:1.0000,FDR:0.2105,time:409.93s
+method:C3ausal-SDE-general-100-30,MCC:0.9960,SHD:33,F1:0.8791,TPR:1.0000,FDR:0.2157,time:410.17s
+method:C3ausal-SDE-general-100-30,MCC:0.9743,SHD:43,F1:0.8222,TPR:0.9250,FDR:0.2600,time:410.02s
+method:C3ausal-SDE-general-100-30,MCC:0.9353,SHD:47,F1:0.8129,TPR:0.9417,FDR:0.2848,time:410.04s
+method:C3ausal-SDE-general-100-30,MCC:0.9946,SHD:32,F1:0.8824,TPR:1.0000,FDR:0.2105,time:410.04s
+method:C3ausal-SDE-general-100-30,MCC:0.9369,SHD:53,F1:0.7860,TPR:0.9333,FDR:0.3212,time:410.13s
+
+method:C3ausal-SDE-general-100-30,MCC:0.9270,SHD:31,F1:0.8523,TPR:0.8417,FDR:0.1368,time:441.77s
+
+
+
+
+# sparsity from C3SL
+seed:42,method:C3ausal-SDE-general-100-30,MCC:0.9527,SHD:30,F1:0.8452,TPR:0.8417,FDR:0.1513,time:168.86s
+seed:43,method:C3ausal-SDE-general-100-30,MCC:0.8509,SHD:58,F1:0.6914,TPR:0.7000,FDR:0.3171,time:166.99s
+seed:44,method:C3ausal-SDE-general-100-30,MCC:0.9462,SHD:32,F1:0.8230,TPR:0.8333,FDR:0.1870,time:167.12s
+seed:45,method:C3ausal-SDE-general-100-30,MCC:0.9961,SHD:23,F1:0.8776,TPR:0.8667,FDR:0.1111,time:167.01s
+seed:46,method:C3ausal-SDE-general-100-30,MCC:0.8890,SHD:53,F1:0.7368,TPR:0.7583,FDR:0.2835,time:167.18s
+
+
+# sparsity from C3SL + Control network (with latent context input to control network)
+seed:42,method:C3ausal-SDE-general-100-30,MCC:0.9526,SHD:47,F1:0.8071,TPR:0.9417,FDR:0.2938,time:178.65s
+seed:43,method:C3ausal-SDE-general-100-30,MCC:0.9494,SHD:43,F1:0.8218,TPR:0.9417,FDR:0.2710,time:176.08s
+seed:44,method:C3ausal-SDE-general-100-30,MCC:0.9628,SHD:41,F1:0.8352,TPR:0.9500,FDR:0.2549,time:168.53s
+seed:45,method:C3ausal-SDE-general-100-30,MCC:0.9963,SHD:28,F1:0.8955,TPR:1.0000,FDR:0.1892,time:168.47s
+seed:46,method:C3ausal-SDE-general-100-30,MCC:0.9306,SHD:52,F1:0.7910,TPR:0.8833,FDR:0.2838,time:168.51s
+
+
+# sparsity from C3SL + Control network (without context input to control network)
+seed:42,method:C3ausal-SDE-general-100-30,MCC:0.9528,SHD:44,F1:0.8159,TPR:0.9417,FDR:0.2803,time:170.26s
+seed:43,method:C3ausal-SDE-general-100-30,MCC:0.9295,SHD:49,F1:0.7860,TPR:0.9333,FDR:0.3212,time:168.52s
+seed:44,method:C3ausal-SDE-general-100-30,MCC:0.9601,SHD:43,F1:0.8309,TPR:0.9417,FDR:0.2566,time:168.57s
+seed:45,method:C3ausal-SDE-general-100-30,MCC:0.9623,SHD:42,F1:0.8339,TPR:0.9417,FDR:0.2517,time:168.45s
+seed:46,method:C3ausal-SDE-general-100-30,MCC:0.9308,SHD:47,F1:0.8030,TPR:0.8833,FDR:0.2639,time:168.51s
+
+
+# Sparse C3SL + Control network (with latent input) - 5000 steps, diagonal noise
+seed:42,method:C3ausal-SDE-diagonal-100-30,MCC:0.9499,SHD:42,F1:0.7400,TPR:0.6167,FDR:0.0750,time:80.17s
+seed:43,method:C3ausal-SDE-diagonal-100-30,MCC:0.9300,SHD:61,F1:0.5608,TPR:0.4417,FDR:0.2319,time:78.61s
+seed:44,method:C3ausal-SDE-diagonal-100-30,MCC:0.9928,SHD:51,F1:0.6171,TPR:0.4500,FDR:0.0182,time:78.67s
+seed:45,method:C3ausal-SDE-diagonal-100-30,MCC:0.9956,SHD:41,F1:0.6813,TPR:0.5167,FDR:0.0000,time:78.59s
+seed:46,method:C3ausal-SDE-diagonal-100-30,MCC:0.9930,SHD:24,F1:0.8918,TPR:0.8583,FDR:0.0721,time:78.66s
+
+# Irregular C3SL + Control network (with latent input) - 7500 steps, general noise
+seed:42,method:C3ausal-SDE-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9473,SHD:36,F1:0.8037,TPR:0.7333,FDR:0.1111,time:939.85s
+seed:43,method:C3ausal-SDE-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9304,SHD:62,F1:0.5949,TPR:0.4833,FDR:0.2267,time:936.51s
+seed:44,method:C3ausal-SDE-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9784,SHD:46,F1:0.6809,TPR:0.5333,FDR:0.0588,time:936.51s
+seed:45,method:C3ausal-SDE-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.7935,SHD:63,F1:0.4852,TPR:0.3417,FDR:0.1633,time:936.84s
+seed:46,method:C3ausal-SDE-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9638,SHD:30,F1:0.8596,TPR:0.8417,FDR:0.1217,time:936.67s
+
+seed:42,method:C3ausal-SDE-general-100-30,sampling_mode:sparse,training_steps:7500,MCC:0.9791,SHD:40,F1:0.7282,TPR:0.5917,FDR:0.0533,time:931.38s
+seed:43,method:C3ausal-SDE-general-100-30,sampling_mode:sparse,training_steps:7500,MCC:0.8993,SHD:57,F1:0.6138,TPR:0.4833,FDR:0.1594,time:928.96s
+seed:42,method:C3ausal-SDE-general-100-30,sampling_mode:sparse,training_steps:2000,MCC:0.6839,SHD:238,F1:0.2836,TPR:0.4833,FDR:0.7993,time:1591.66s
