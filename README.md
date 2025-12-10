@@ -1,6 +1,6 @@
-# Causal Latent SDE
+# Continuous-time Causal Discovery via Latent SDE and Control Energy Network
 
-This directory implements the Causal Latent Stochastic Differential Equation (SDE) framework for discovering causal structure from continuous-time data. The codebase combines latent-variable SDE modelling with control-based regularisation to recover directed acyclic graphs in the latent dynamics.
+This directory implements the Causal Latent Stochastic Differential Equation (SDE) framework for discovering causal structure from continuous-time data. The codebase combines latent-variable SDE modelling with control-based regularization to recover causal graph in the latent dynamics.
 
 ## Folder Overview
 
