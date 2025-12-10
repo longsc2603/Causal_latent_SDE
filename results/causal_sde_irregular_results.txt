@@ -1,0 +1,4 @@
+seed:42,method:C3ausal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9525,SHD:39,F1:0.7647,TPR:0.6500,FDR:0.0714,time:1256.01s
+seed:43,method:C3ausal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9430,SHD:38,F1:0.7773,TPR:0.6833,FDR:0.0989,time:1253.88s
+seed:44,method:C3ausal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9783,SHD:48,F1:0.6667,TPR:0.5250,FDR:0.0870,time:1253.87s
+seed:45,method:C3ausal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9631,SHD:30,F1:0.8326,TPR:0.7667,FDR:0.0891,time:1254.09s
