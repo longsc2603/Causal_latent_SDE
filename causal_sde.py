@@ -29,6 +29,7 @@ class CausalSDE:
         self.irregular = args.irregular
         self.lr = args.lr
         self.n_auto_steps = args.n_auto_steps
+        self.pretrain_steps = args.pretrain_steps
         self.lasso_type = args.lasso_type
         self.w_threshold = args.w_threshold
         self.device_type = args.device_type
@@ -139,6 +140,34 @@ class CausalSDE:
         X_torch = torch.as_tensor(X, dtype=torch.float32).to(self.device)
         T_torch = torch.as_tensor(times, dtype=torch.float32).to(self.device)
 
+        # ============= Phase 1: Pretrain VAE (Encoder + Decoder) =============
+        vae_optimizer = torch.optim.Adam([
+            {'params': self.encoder.parameters()},
+            {'params': self.decoder.parameters()}
+        ], lr=self.lr)
+        
+        print(f"Pretraining VAE for {self.pretrain_steps} steps...")
+        pretrain_t = tqdm(range(self.pretrain_steps), desc="VAE Pretrain")
+        for k in pretrain_t:
+            vae_optimizer.zero_grad()
+            mu, logvar, Z = self.encoder(X_torch)
+            X_hat = self.decoder(Z)
+            
+            # VAE loss: reconstruction + KL divergence (standard VAE prior)
+            recon_loss = self.squared_loss(X_hat, X_torch)
+            # KL divergence with standard normal prior: KL(q(z|x) || N(0,I))
+            kl_prior = 0.5 / X_torch.shape[0] * torch.sum(
+                mu.pow(2) + torch.exp(logvar) - 1 - logvar
+            )
+            vae_loss = recon_loss + kl_prior
+            
+            pretrain_t.set_postfix(loss=vae_loss.item(), recon=recon_loss.item(), kl=kl_prior.item())
+            vae_loss.backward()
+            vae_optimizer.step()
+        
+        print("VAE pretraining complete. Starting main training...")
+        
+        # ============= Phase 2: Main Training (all components) =============
         optimizer = torch.optim.Adam([{'params': self.encoder.parameters()},
                                            {'params': self.decoder.parameters()},
                                           {'params': self.sdemlp.parameters()},
@@ -149,7 +178,7 @@ class CausalSDE:
         for k in t:
             # Variable learning rate: decrease by 0.002 every 8000 steps
             # (subtractive schedule). Ensure lr doesn't go below 0.
-            steps_per_drop = 6000
+            steps_per_drop = 3000
             drop_amount = 0.001
             num_drops = k // steps_per_drop
             new_lr = max(self.lr - num_drops * drop_amount, 0.001)
@@ -164,19 +193,25 @@ class CausalSDE:
                 # T_torch shape is [N], gaps shape is [N-1]
                 gaps = T_torch[1:] - T_torch[:-1]
                 
-                # Convert gaps to integer number of steps (rounding to handle float precision)
-                steps_tensor = (gaps / self.delta_t).round().long()
-                max_steps = int(torch.max(steps_tensor).item())
+                max_gap = int(torch.max(gaps).item())
 
                 mu1 = []
                 mu2 = []
                 control_energy = 0.0
+                
+                # Pass appropriate context based on control_context setting
+                if self.control_context == 'observation':
+                    context = X_torch
+                elif self.control_context == 'latent':
+                    context = Z
+                else:
+                    context = None
 
                 # 2. Iterate through strictly necessary step sizes (1, 2, ... max_gap)
-                for i in range(1, max_steps + 1):
+                for i in range(1, max_gap + 1):
                     # Find indices 'k' where the gap between k and k+1 is exactly 'i' steps
                     # This returns indices valid for mu[:-1]
-                    idx_transitions = torch.where(steps_tensor == i)[0]
+                    idx_transitions = torch.where(gaps == i)[0]
                     
                     if len(idx_transitions) == 0:
                         continue
@@ -186,7 +221,7 @@ class CausalSDE:
                     index_mu = mu[idx_transitions]      # Z_t
                     index_mu1 = mu[idx_transitions + 1] # Z_{t+next} (Target)
                     
-                    current_context = Z[idx_transitions]
+                    current_context = context[idx_transitions] if context is not None else None
 
                     # 4. Integrate SDE over 'i' steps
                     for j in range(i):
@@ -209,19 +244,34 @@ class CausalSDE:
                 # gaps hold all the time gaps between observations
                 gaps = T_torch[1:] - T_torch[:-1]
                 max_gap = torch.max(gaps).int()
-                max_dt = int(max_gap / self.delta_t)
                 
                 mu2 = mu
                 control_energy = 0.0
+                
+                # Pass appropriate context based on control_context setting
+                if self.control_context == 'observation':
+                    context = X_torch
+                elif self.control_context == 'latent':
+                    context = Z
+                else:
+                    context = None
+
                 # Integrate SDE over multiple smaller time steps instead of one large step
-                for i in range(max_dt):
-                    mu2, step_energy = self.euler_maruyama_step(mu2, context=Z, t=i, dt=self.delta_t)
+                for i in range(max_gap):
+                    mu2, step_energy = self.euler_maruyama_step(mu2, context=context, t=i, dt=self.delta_t)
                     control_energy += step_energy
                 kl_loss = self.kl_loss(mu[1:], mu2[:-1], logvar)
                 
             else:
                 # Frequent/regular sampling
-                mu2, control_energy = self.euler_maruyama_step(mu, context=None, t=T_torch, dt=self.delta_t)
+                # Pass appropriate context based on control_context setting
+                if self.control_context == 'observation':
+                    context = X_torch
+                elif self.control_context == 'latent':
+                    context = Z
+                else:
+                    context = None
+                mu2, control_energy = self.euler_maruyama_step(mu, context=context, t=T_torch, dt=self.delta_t)
                 kl_loss = self.kl_loss(mu[1:], mu2[:-1], logvar)
             
             # Reconstruction loss

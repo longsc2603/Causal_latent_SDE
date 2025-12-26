@@ -1,4 +1,4 @@
-# sparsity from C3SL - frequent samping
+# sparsity penalty - frequent sampling
 seed:42,method:C3ausal-SDE-general-100-30,MCC:0.9527,SHD:30,F1:0.8452,TPR:0.8417,FDR:0.1513,time:168.86s
 seed:43,method:C3ausal-SDE-general-100-30,MCC:0.8509,SHD:58,F1:0.6914,TPR:0.7000,FDR:0.3171,time:166.99s
 seed:44,method:C3ausal-SDE-general-100-30,MCC:0.9462,SHD:32,F1:0.8230,TPR:0.8333,FDR:0.1870,time:167.12s
@@ -6,7 +6,7 @@ seed:45,method:C3ausal-SDE-general-100-30,MCC:0.9961,SHD:23,F1:0.8776,TPR:0.8667
 seed:46,method:C3ausal-SDE-general-100-30,MCC:0.8890,SHD:53,F1:0.7368,TPR:0.7583,FDR:0.2835,time:167.18s
 
 
-# sparsity from C3SL + Control network (with latent context input to control network) - frequent samping
+# sparsity penalty + Control network (with latent context input to control network) - frequent sampling
 seed:42,method:C3ausal-SDE-general-100-30,MCC:0.9526,SHD:47,F1:0.8071,TPR:0.9417,FDR:0.2938,time:178.65s
 seed:43,method:C3ausal-SDE-general-100-30,MCC:0.9494,SHD:43,F1:0.8218,TPR:0.9417,FDR:0.2710,time:176.08s
 seed:44,method:C3ausal-SDE-general-100-30,MCC:0.9628,SHD:41,F1:0.8352,TPR:0.9500,FDR:0.2549,time:168.53s
@@ -14,7 +14,7 @@ seed:45,method:C3ausal-SDE-general-100-30,MCC:0.9963,SHD:28,F1:0.8955,TPR:1.0000
 seed:46,method:C3ausal-SDE-general-100-30,MCC:0.9306,SHD:52,F1:0.7910,TPR:0.8833,FDR:0.2838,time:168.51s
 
 
-# sparsity from C3SL + Control network (without context input to control network) - frequent samping
+# sparsity penalty + Control network (without context input to control network) - frequent sampling
 seed:42,method:C3ausal-SDE-general-100-30,MCC:0.9528,SHD:44,F1:0.8159,TPR:0.9417,FDR:0.2803,time:170.26s
 seed:43,method:C3ausal-SDE-general-100-30,MCC:0.9295,SHD:49,F1:0.7860,TPR:0.9333,FDR:0.3212,time:168.52s
 seed:44,method:C3ausal-SDE-general-100-30,MCC:0.9601,SHD:43,F1:0.8309,TPR:0.9417,FDR:0.2566,time:168.57s
@@ -22,16 +22,31 @@ seed:45,method:C3ausal-SDE-general-100-30,MCC:0.9623,SHD:42,F1:0.8339,TPR:0.9417
 seed:46,method:C3ausal-SDE-general-100-30,MCC:0.9308,SHD:47,F1:0.8030,TPR:0.8833,FDR:0.2639,time:168.51s
 
 
-# Sparse C3SL + Control network (with latent input) - 5000 steps, diagonal noise
-seed:42,method:C3ausal-SDE-diagonal-100-30,MCC:0.9499,SHD:42,F1:0.7400,TPR:0.6167,FDR:0.0750,time:80.17s
-seed:43,method:C3ausal-SDE-diagonal-100-30,MCC:0.9300,SHD:61,F1:0.5608,TPR:0.4417,FDR:0.2319,time:78.61s
-seed:44,method:C3ausal-SDE-diagonal-100-30,MCC:0.9928,SHD:51,F1:0.6171,TPR:0.4500,FDR:0.0182,time:78.67s
-seed:45,method:C3ausal-SDE-diagonal-100-30,MCC:0.9956,SHD:41,F1:0.6813,TPR:0.5167,FDR:0.0000,time:78.59s
-seed:46,method:C3ausal-SDE-diagonal-100-30,MCC:0.9930,SHD:24,F1:0.8918,TPR:0.8583,FDR:0.0721,time:78.66s
+# Latest results: Latent control input, dual-sparsity, frequent sampling, training for various numbers of steps
+seed:42,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:10000,MCC:0.9856,SHD:45,F1:0.8304,TPR:1.0000,FDR:0.2899,time:260.09s
+seed:43,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:10000,MCC:0.9622,SHD:48,F1:0.8054,TPR:1.0000,FDR:0.3258,time:256.09s
+seed:44,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:10000,MCC:0.9781,SHD:48,F1:0.8219,TPR:1.0000,FDR:0.3023,time:256.34s
+seed:45,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:10000,MCC:0.9960,SHD:54,F1:0.8163,TPR:1.0000,FDR:0.3103,time:256.38s
+seed:46,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:10000,MCC:0.9948,SHD:37,F1:0.8655,TPR:0.9917,FDR:0.2323,time:256.38s
 
-# Irregular C3SL + Control network (with latent input) - 7500 steps, general noise
-seed:42,method:C3ausal-SDE-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9473,SHD:36,F1:0.8037,TPR:0.7333,FDR:0.1111,time:939.85s
-seed:43,method:C3ausal-SDE-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9304,SHD:62,F1:0.5949,TPR:0.4833,FDR:0.2267,time:936.51s
-seed:44,method:C3ausal-SDE-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9784,SHD:46,F1:0.6809,TPR:0.5333,FDR:0.0588,time:936.51s
-seed:45,method:C3ausal-SDE-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.7935,SHD:63,F1:0.4852,TPR:0.3417,FDR:0.1633,time:936.84s
-seed:46,method:C3ausal-SDE-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9638,SHD:30,F1:0.8596,TPR:0.8417,FDR:0.1217,time:936.67s
+seed:42,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:20000,MCC:0.9856,SHD:22,F1:0.9023,TPR:1.0000,FDR:0.1781,time:474.62s
+seed:43,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:20000,MCC:0.9620,SHD:38,F1:0.8327,TPR:0.9333,FDR:0.2483,time:471.11s
+seed:44,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:20000,MCC:0.9787,SHD:21,F1:0.9057,TPR:1.0000,FDR:0.1724,time:471.37s
+seed:45,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:20000,MCC:0.9959,SHD:20,F1:0.9231,TPR:1.0000,FDR:0.1429,time:471.63s
+seed:46,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:20000,MCC:0.9948,SHD:15,F1:0.9412,TPR:1.0000,FDR:0.1111,time:471.65s
+
+seed:42,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:50000,MCC:0.9847,SHD:21,F1:0.8983,TPR:0.8833,FDR:0.0862,time:1163.37s
+seed:43,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:50000,MCC:0.9599,SHD:43,F1:0.7713,TPR:0.7167,FDR:0.1650,time:1160.84s
+seed:44,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:50000,MCC:0.9785,SHD:23,F1:0.8831,TPR:0.8500,FDR:0.0811,time:1162.24s
+
+seed:42,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9857,SHD:17,F1:0.9255,TPR:0.9833,FDR:0.1259,time:704.37s
+seed:43,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9609,SHD:30,F1:0.8537,TPR:0.8750,FDR:0.1667,time:3212.23s
+seed:44,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9779,SHD:20,F1:0.9012,TPR:0.9500,FDR:0.1429,time:700.04s
+seed:45,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9959,SHD:13,F1:0.9486,TPR:1.0000,FDR:0.0977,time:700.38s
+seed:46,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9947,SHD:11,F1:0.9558,TPR:0.9917,FDR:0.0775,time:700.44s
+
+seed:42,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9862,SHD:13,F1:0.9398,TPR:0.9750,FDR:0.0930,time:446.32s
+seed:43,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9612,SHD:26,F1:0.8655,TPR:0.8583,FDR:0.1271,time:439.29s
+seed:44,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9794,SHD:10,F1:0.9504,TPR:0.9583,FDR:0.0574,time:439.33s
+seed:45,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9962,SHD:2,F1:0.9917,TPR:1.0000,FDR:0.0164,time:439.40s
+seed:46,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9630,SHD:6,F1:0.9655,TPR:0.9333,FDR:0.0000,time:439.24s

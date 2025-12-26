@@ -15,9 +15,9 @@ config = parser.parse_args(args=[])
 # Model architecture parameters
 config.n_v = 100
 config.n_z = 30
-config.n_samples = 2000
+config.n_samples = 500
 config.delta_t = 0.1
-config.fraction = 1
+config.fraction = 0.3
 config.dims = [config.n_v, 1]
 config.z_dims = [config.n_z, 10, 1]
 
@@ -30,7 +30,7 @@ config.lambda5 = 0.01  # L2 regularization for diffusion
 config.gamma = 0.5
 config.beta_control = 0.01
 config.control_context = 'latent'  # Options: 'none', 'observation', 'latent'
-config.control_hidden = 64
+config.control_hidden = 16
 config.control_layers = 2
 
 
@@ -38,7 +38,8 @@ config.control_layers = 2
 config.bias = True
 config.irregular = 'irregular'  # 'frequent', 'sparse', or 'irregular' sampling
 config.lr = 0.005
-config.n_auto_steps = 7500
+config.n_auto_steps = 10000
+config.pretrain_steps = 2000
 config.lasso_type = 'AGL'
 config.w_threshold = 0.1
 
@@ -63,7 +64,7 @@ experiments = [
     (100, 30, 0.005, 0.002, 0.01)
 ]
 
-results_file = 'results/Causal_sde_irregular_results.txt'
+results_file = 'results/causal_sde_irregular_results.txt'
 
 for dx, dz, lr, l3, l4 in experiments:
     config.n_v = dx

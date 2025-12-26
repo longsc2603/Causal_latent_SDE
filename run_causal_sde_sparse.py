@@ -1,9 +1,11 @@
 import argparse
 import random
 import torch
-import numpy as np
 from time import time
-from Causal_sde import CausalSDE
+
+import numpy as np
+
+from causal_sde import CausalSDE
 from utils.evaluation import MetricsDAG
 from utils.simulator import simulate_latent_lorenz
 
@@ -13,9 +15,9 @@ config = parser.parse_args(args=[])
 # Model architecture parameters
 config.n_v = 100
 config.n_z = 30
-config.n_samples = 200
+config.n_samples = 2000
 config.delta_t = 0.1
-config.fraction = 0.2
+config.fraction = 1
 config.dims = [config.n_v, 1]
 config.z_dims = [config.n_z, 10, 1]
 
@@ -28,14 +30,15 @@ config.lambda5 = 0.05  # L2 regularization for diffusion
 config.gamma = 0.5
 config.beta_control = 0.01
 config.control_context = 'latent'  # Options: 'none', 'observation', 'latent'
-config.control_hidden = 64
+config.control_hidden = 16
 config.control_layers = 2
 
 # Training parameters
 config.bias = True
 config.irregular = 'sparse' # 'frequent', 'sparse', or 'irregular' sampling
 config.lr = 0.005
-config.n_auto_steps = 5000
+config.n_auto_steps = 40000
+config.pretrain_steps = 2000
 config.lasso_type = 'AGL'
 config.w_threshold = 0.1
 
@@ -47,7 +50,7 @@ config.device_ids = 0
 config.noise_type = 'general'  # 'scalar', 'diagonal', or 'general'
 config.sde_type = 'ito'        # 'ito' or 'stratonovich'
 
-results_file = 'results/Causal_sde_sparse_results.txt'
+results_file = 'results/causal_sde_sparse_results.txt'
 
 print("="*80)
 print("Causal-SDE (Sparse): Causal Discovery with Neural SDEs (sparsity experiments)")
@@ -56,7 +59,8 @@ print(f"Noise Type: {config.noise_type}")
 print(f"SDE Type: {config.sde_type}")
 print("="*80)
 
-# Experiments (n_observed, n_latent, learning_rate, lambda3, lambda4)
+# Experiments with different system sizes
+# (n_observed, n_latent, learning_rate, lambda3, lambda4)
 experiments = [
     (100, 30, 0.005, 0.002, 0.01)
 ]
@@ -96,10 +100,10 @@ for dx, dz, lr, l3, l4 in experiments:
             seed=k
         )
 
-        # Sample observations
-        indices = np.sort(np.random.choice(range(T), config.n_samples, replace=False))
-        times = np.linspace(0, T, T)
-        times = times[indices]
+        # Sample observations sparsely at 5x fewer time points
+        sparse_sampling_rate = 5    # Sample every 5th time point
+        times = np.linspace(0, T, int(T/sparse_sampling_rate))
+        indices = np.array([t*sparse_sampling_rate for t in range(len(times))])
         data = data[indices, :]
         Z = Z[indices, :]
 

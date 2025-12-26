@@ -1,4 +1,12 @@
-seed:42,method:C3ausal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9525,SHD:39,F1:0.7647,TPR:0.6500,FDR:0.0714,time:1256.01s
-seed:43,method:C3ausal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9430,SHD:38,F1:0.7773,TPR:0.6833,FDR:0.0989,time:1253.88s
-seed:44,method:C3ausal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9783,SHD:48,F1:0.6667,TPR:0.5250,FDR:0.0870,time:1253.87s
-seed:45,method:C3ausal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9631,SHD:30,F1:0.8326,TPR:0.7667,FDR:0.0891,time:1254.09s
+seed:42,method:Causal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9520,SHD:80,F1:0.7129,TPR:0.9417,FDR:0.4264,time:2427.95s
+seed:43,method:Causal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.8985,SHD:106,F1:0.6391,TPR:0.9000,FDR:0.5046,time:2180.60s
+seed:44,method:Causal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9429,SHD:94,F1:0.6869,TPR:0.9417,FDR:0.4593,time:2156.59s
+seed:45,method:Causal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.9628,SHD:65,F1:0.7483,TPR:0.9417,FDR:0.3791,time:2900.69s
+seed:46,method:Causal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:7500,MCC:0.8612,SHD:114,F1:0.5957,TPR:0.8167,FDR:0.5311,time:2744.42s
+
+# Latest
+seed:42,method:Causal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:10000,MCC:0.9754,SHD:52,F1:0.7987,TPR:0.9917,FDR:0.3315,time:3255.65s
+seed:43,method:Causal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:10000,MCC:0.9251,SHD:76,F1:0.7129,TPR:0.9417,FDR:0.4264,time:2932.97s
+seed:44,method:Causal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:10000,MCC:0.9795,SHD:58,F1:0.7947,TPR:1.0000,FDR:0.3407,time:2889.51s
+seed:45,method:Causal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:10000,MCC:0.9922,SHD:46,F1:0.8333,TPR:1.0000,FDR:0.2857,time:3886.06s
+seed:46,method:Causal-SDE-irregular-general-100-30,sampling_mode:irregular,training_steps:10000,MCC:0.9594,SHD:62,F1:0.7687,TPR:0.9417,FDR:0.3506,time:3672.16s

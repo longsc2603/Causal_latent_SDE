@@ -5,7 +5,7 @@ from time import time
 
 import numpy as np
 
-from Causal_sde import CausalSDE
+from causal_sde import CausalSDE
 from utils.evaluation import MetricsDAG
 from utils.simulator import simulate_latent_lorenz
 
@@ -17,7 +17,7 @@ config.n_v = 100
 config.n_z = 30
 config.n_samples = 2000
 config.delta_t = 0.1
-config.fraction = 0.2
+config.fraction = 1
 config.dims = [config.n_v, 1]
 config.z_dims = [config.n_z, 10, 1]
 
@@ -35,10 +35,11 @@ config.control_layers = 2
 
 # Training parameters
 config.bias = True
-config.irregular = 'sparse'  # 'frequent', 'sparse', or 'irregular' sampling
+config.irregular = 'frequent'  # 'frequent', 'sparse', or 'irregular' sampling
 config.lr = 0.005
-config.n_auto_steps = 2000
-config.lasso_type = 'L1'
+config.n_auto_steps = 30000
+config.pretrain_steps = 2000
+config.lasso_type = 'AGL'
 config.w_threshold = 0.1
 
 # Device configuration
@@ -49,8 +50,6 @@ config.device_ids = 0
 config.noise_type = 'general'  # 'scalar', 'diagonal', or 'general'
 config.sde_type = 'ito'        # 'ito' or 'stratonovich'
 
-results_file = 'results/Causal_sde_results.txt'
-
 print("="*80)
 print("Causal-SDE: Causal Discovery with Neural Stochastic Differential Equations")
 print("="*80)
@@ -58,7 +57,7 @@ print(f"Noise Type: {config.noise_type}")
 print(f"SDE Type: {config.sde_type}")
 print("="*80)
 
-results_file = 'results/Causal_sde_results.txt'
+results_file = 'results/causal_sde_results.txt'
 
 # Experiments with different system sizes
 # (n_observed, n_latent, learning_rate, lambda3, lambda4)
@@ -143,5 +142,5 @@ for dx, dz, lr, l3, l4 in experiments:
         
 print("\n" + "="*80)
 print("All experiments completed!")
-print(f"Results saved to: results/Causal_sde_results.txt")
+print(f"Results saved to: {results_file}")
 print("="*80)
