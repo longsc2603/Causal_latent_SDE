@@ -25,3 +25,10 @@ seed:43,method:Causal-SDE-sparse-general-100-30,sampling_mode:sparse,training_st
 seed:44,method:Causal-SDE-sparse-general-100-30,sampling_mode:sparse,training_steps:40000,MCC:0.9723,SHD:19,F1:0.8831,TPR:0.8500,FDR:0.0811,time:778.55s
 seed:45,method:Causal-SDE-sparse-general-100-30,sampling_mode:sparse,training_steps:40000,MCC:0.9915,SHD:12,F1:0.9508,TPR:0.9667,FDR:0.0645,time:777.45s
 seed:46,method:Causal-SDE-sparse-general-100-30,sampling_mode:sparse,training_steps:40000,MCC:0.9893,SHD:13,F1:0.9295,TPR:0.9333,FDR:0.0744,time:778.34s
+
+# Latest, best
+seed:42,method:Causal-SDE-sparse-general-100-30,sampling_mode:sparse,training_steps:30000,MCC:0.9734,SHD:22,F1:0.9032,TPR:0.9333,FDR:0.1250,time:583.11s
+seed:43,method:Causal-SDE-sparse-general-100-30,sampling_mode:sparse,training_steps:30000,MCC:0.9749,SHD:19,F1:0.9012,TPR:0.9500,FDR:0.1429,time:580.45s
+seed:44,method:Causal-SDE-sparse-general-100-30,sampling_mode:sparse,training_steps:30000,MCC:0.9804,SHD:13,F1:0.9295,TPR:0.9333,FDR:0.0744,time:581.34s
+seed:45,method:Causal-SDE-sparse-general-100-30,sampling_mode:sparse,training_steps:30000,MCC:0.9916,SHD:14,F1:0.9444,TPR:0.9917,FDR:0.0985,time:580.65s
+seed:46,method:Causal-SDE-sparse-general-100-30,sampling_mode:sparse,training_steps:30000,MCC:0.9881,SHD:13,F1:0.9350,TPR:0.9583,FDR:0.0873,time:581.79s

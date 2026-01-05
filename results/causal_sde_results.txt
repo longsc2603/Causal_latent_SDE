@@ -50,3 +50,10 @@ seed:43,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:3
 seed:44,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9794,SHD:10,F1:0.9504,TPR:0.9583,FDR:0.0574,time:439.33s
 seed:45,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9962,SHD:2,F1:0.9917,TPR:1.0000,FDR:0.0164,time:439.40s
 seed:46,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9630,SHD:6,F1:0.9655,TPR:0.9333,FDR:0.0000,time:439.24s
+
+# Latest, best
+seed:42,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9853,AUROC:0.9734,SHD:13,F1:0.9426,TPR:0.9583,FDR:0.0726,time:440.63s
+seed:43,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9615,AUROC:0.9362,SHD:22,F1:0.8843,TPR:0.8917,FDR:0.1230,time:439.58s
+seed:44,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9793,AUROC:0.9699,SHD:10,F1:0.9421,TPR:0.9500,FDR:0.0656,time:439.32s
+seed:45,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9962,AUROC:0.9952,SHD:2,F1:0.9917,TPR:0.9917,FDR:0.0083,time:439.91s
+seed:46,method:Causal-SDE-general-100-30,sampling_mode:frequent,training_steps:30000,MCC:0.9951,AUROC:0.9994,SHD:1,F1:0.9959,TPR:1.0000,FDR:0.0083,time:439.87s

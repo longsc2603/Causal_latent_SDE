@@ -13,12 +13,16 @@ from models.Decoder import Decoder
 from models.Encoder import Encoder
 from models.SDEmlp import SDEmlp
 
+from utils.evaluation import compute_auroc
+
 
 class CausalSDE:
     def __init__(self, args):
         self.dims = args.dims
         self.z_dims = args.z_dims
         self.delta_t = args.delta_t
+        self.obs_delta_t = getattr(args, 'obs_delta_t', args.delta_t)
+        self.annealing_proximal = getattr(args, 'annealing_proximal', False)
         self.lambda1 = args.lambda1
         self.lambda2 = args.lambda2
         self.lambda3 = args.lambda3
@@ -28,7 +32,7 @@ class CausalSDE:
         self.bias = args.bias
         self.irregular = args.irregular
         self.lr = args.lr
-        self.n_auto_steps = args.n_auto_steps
+        self.train_steps = args.train_steps
         self.pretrain_steps = args.pretrain_steps
         self.lasso_type = args.lasso_type
         self.w_threshold = args.w_threshold
@@ -136,7 +140,7 @@ class CausalSDE:
         
         return z_next, control_energy
 
-    def learn(self, X, times):
+    def learn(self, X, times, Z_orig, B):
         X_torch = torch.as_tensor(X, dtype=torch.float32).to(self.device)
         T_torch = torch.as_tensor(times, dtype=torch.float32).to(self.device)
 
@@ -174,8 +178,15 @@ class CausalSDE:
                                           {'params': self.control_policy.parameters()}], lr=self.lr)
         optimizer = optimizer
 
-        t = tqdm(range(self.n_auto_steps))
+        t = tqdm(range(self.train_steps))
         for k in t:
+            # LINEAR ANNEALING: Increase Proximal penalty after step 1000
+            if self.annealing_proximal == True and k > 1000:
+                # Slowly ramp from 0.01 to 0.04
+                progress = (k - 1000) / (self.train_steps - 1000)
+                self.lambda3 = 0.01 + (0.03 * progress)
+                self.lambda4 = 0.01 + (0.03 * progress)
+
             # Variable learning rate: decrease by 0.002 every 8000 steps
             # (subtractive schedule). Ensure lr doesn't go below 0.
             steps_per_drop = 3000
@@ -206,6 +217,10 @@ class CausalSDE:
                     context = Z
                 else:
                     context = None
+                
+                # Calculate how many small steps make up one integer observation unit
+                # e.g., 1.0 / 0.005 = 200 steps
+                steps_per_obs_gap = int(round(self.obs_delta_t / self.delta_t))
 
                 # 2. Iterate through strictly necessary step sizes (1, 2, ... max_gap)
                 for i in range(1, max_gap + 1):
@@ -223,8 +238,10 @@ class CausalSDE:
                     
                     current_context = context[idx_transitions] if context is not None else None
 
+                    total_steps = i * steps_per_obs_gap
+
                     # 4. Integrate SDE over 'i' steps
-                    for j in range(i):
+                    for j in range(total_steps):
                         index_mu, step_energy = self.euler_maruyama_step(index_mu, context=current_context, t=j, dt=self.delta_t)
                         control_energy += step_energy.sum()
                     
@@ -300,6 +317,20 @@ class CausalSDE:
             self.encoder.proximal(lam=self.lambda3, eta=0.01)
             self.sdemlp.proximal(lam=self.lambda4, eta=0.01)
             self.decoder.proximal(lam=self.lambda3, eta=0.01)
+
+            if (k + 1) % 100 == 0:
+                # Evaluate latent recovery
+                W_corrs, B_corrs = self.get_MCC(X, Z_orig)
+
+                # Get causal adjacency estimates
+                GC_est, W_xz, W_z, W_zx = self.get_adj()
+
+                # Evaluate causal discovery in latent space
+                B_est = np.matmul(np.matmul(B_corrs, W_z), B_corrs.T)
+                
+                # AUROC calculation
+                auroc = compute_auroc(B, B_est, diagonal=True)
+                print(f"\nStep {k+1}: Latent MCC: {W_corrs:.4f}, AUROC: {auroc:.4f}")
 
     def get_MCC(self, X, Z, method='pearson'):
         X_torch = torch.as_tensor(X, dtype=torch.float32).to(self.device)

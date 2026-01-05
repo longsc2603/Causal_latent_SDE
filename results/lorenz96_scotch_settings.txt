@@ -1,0 +1,15 @@
+# fraction = 0.4, n_samples = 4000, dt = 0.1, steps = 2500, change euler_maruyama_step loop logic
+seed:42,method:Causal-SDE-irregular-diagonal-10-10,sampling_mode:irregular,training_steps:2500,MCC:0.9756,AUROC:0.6875,SHD:19,F1:0.5846,TPR:0.4750,FDR:0.2400,time:9840.09s
+seed:43,method:Causal-SDE-irregular-diagonal-10-10,sampling_mode:irregular,training_steps:2500,MCC:0.9758,AUROC:0.7167,SHD:19,F1:0.6486,TPR:0.6000,FDR:0.2941,time:8350.43s
+seed:44,method:Causal-SDE-irregular-diagonal-10-10,sampling_mode:irregular,training_steps:2500,MCC:0.9758,AUROC:0.6458,SHD:21,F1:0.5750,TPR:0.5750,FDR:0.4250,time:7703.78s
+seed:45,method:Causal-SDE-irregular-diagonal-10-10,sampling_mode:irregular,training_steps:2500,MCC:0.9259,AUROC:0.5875,SHD:24,F1:0.4722,TPR:0.4250,FDR:0.4688,time:7592.05s
+seed:46,method:Causal-SDE-irregular-diagonal-10-10,sampling_mode:irregular,training_steps:2500,MCC:0.9759,AUROC:0.6792,SHD:20,F1:0.6173,TPR:0.6250,FDR:0.3902,time:9812.64s
+AUROC: Mean = 0.6633, Std = 0.0441
+
+# fraction = 0.7, n_samples = 7000, dt = 0.05, steps = 2000, change euler_maruyama_step loop logic
+seed:42,method:Causal-SDE-irregular-diagonal-10-10,sampling_mode:irregular,training_steps:2000,MCC:0.9753,AUROC:0.7333,SHD:21,F1:0.6897,TPR:0.7500,FDR:0.3617,time:3683.18s
+seed:43,method:Causal-SDE-irregular-diagonal-10-10,sampling_mode:irregular,training_steps:2000,MCC:0.9275,AUROC:0.7583,SHD:16,F1:0.7089,TPR:0.7000,FDR:0.2821,time:4497.22s
+seed:44,method:Causal-SDE-irregular-diagonal-10-10,sampling_mode:irregular,training_steps:2000,MCC:0.9754,AUROC:0.7125,SHD:18,F1:0.6585,TPR:0.6750,FDR:0.3571,time:4013.94s
+seed:45,method:Causal-SDE-irregular-diagonal-10-10,sampling_mode:irregular,training_steps:2000,MCC:0.9759,AUROC:0.7375,SHD:15,F1:0.6905,TPR:0.7250,FDR:0.3409,time:2847.44s
+seed:46,method:Causal-SDE-irregular-diagonal-10-10,sampling_mode:irregular,training_steps:2000,MCC:0.9759,AUROC:0.7375,SHD:18,F1:0.6905,TPR:0.7250,FDR:0.3409,time:2847.86s
+AUROC: Mean = 0.7358, Std = 0.0146

@@ -16,6 +16,37 @@
 import copy
 import numpy as np
 import pandas as pd
+import numpy as np
+from sklearn.metrics import roc_auc_score, f1_score, precision_recall_fscore_support
+
+
+def compute_auroc(ground_truth, prediction, diagonal=True):
+    """
+    Calculates the Area Under the ROC Curve (AUROC) exactly as described 
+    in the SCOTCH paper benchmarks.
+    
+    Args:
+        ground_truth (np.ndarray): Binary adjacency matrix of the ground truth DAG.
+        prediction (np.ndarray): Continuous matrix of predicted weights/probabilities.
+                                 (Raw weights before thresholding).
+        diagonal (bool): Whether to include the diagonal (self-loops) in the calculation.
+                         - Lorenz/Netsim: Generally True [cite: 318, 798]
+                         - DREAM3: Generally False [cite: 295]
+                         
+    Returns:
+        float: The AUROC score.
+    """
+    ground_truth_flat = ground_truth.flatten()
+    prediction_flat = prediction.flatten()
+    
+    if not diagonal:
+        # Remove diagonal elements for datasets that ignore self-loops (e.g., DREAM3)
+        n = ground_truth.shape[0]
+        idx = np.eye(n, dtype=bool).flatten()
+        ground_truth_flat = ground_truth_flat[~idx]
+        prediction_flat = prediction_flat[~idx]
+        
+    return roc_auc_score(ground_truth_flat, prediction_flat)
 
 
 class MetricsDAG(object):
